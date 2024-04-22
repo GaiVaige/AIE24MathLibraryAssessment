@@ -9,11 +9,10 @@ int main()
     Vector4 v2(5, 33,5,1);
     
     Vector4 v3 = v.Cross(v2);
+    float ol = v[1];
+    v[1] = 5;
+    std::cout << v[1];
 
-    std::cout << v3.x << '\n'; 
-    std::cout << v3.y << '\n';
-    std::cout << v3.z << '\n';
-    std::cout << v3.w << '\n';
 
 }
 

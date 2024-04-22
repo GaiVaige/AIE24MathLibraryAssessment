@@ -41,6 +41,12 @@ float Vector3::Magnitude()
     return sqrt((x * x) + (y * y) + (z * z));
 }
 
+float Vector3::Distance(Vector3& v)
+{
+    Vector3 diffVec = *this - v;
+    return diffVec.Magnitude();
+}
+
 const Vector3 Vector3::Normalize()
 {
     float cM = this->Magnitude();
@@ -126,6 +132,24 @@ const Vector3& Vector3::operator*=(const float f)
     return *this;
 }
 
+float& Vector3::operator[](int i)
+{
+    switch (i)
+    {
+    case 0:
+        return this->x;
+        break;
+    case 1:
+        return this->y;
+        break;
+    case 2:
+        return this->z;
+        break;
+    default:
+        break;
+    }
+}
+
 Vector3 operator*(const float LHS, Vector3& RHS)
 {
         return RHS * LHS;
@@ -169,6 +193,12 @@ float Vector4::Magnitude()
     return sqrt((x * x) + (y * y) + (z * z) + (w*w));
 }
 
+float Vector4::Distance(Vector4& v)
+{
+    Vector4 diffVec = *this - v;
+    return diffVec.Magnitude();
+}
+
 const Vector4 Vector4::Normalize()
 {
     float cM = this->Magnitude();
@@ -188,13 +218,9 @@ float Vector4::Dot(const Vector4& v)
     return nx + ny + nz + nw;
 }
 
-Vector4 Vector4::Cross(const Vector4& v)
-{
-    Vector3 cVec;
-    cVec.x = (y * v.z) - (z * v.y);
-    cVec.y = (z * v.x) - (x * v.z);
-    cVec.z = (x * v.y) - (y * v.x);
-    return (Vector4)cVec;
+Vector4 Vector4::Cross(const Vector4& v) {
+    Vector3 cVec = (Vector3)*this; 
+    return (Vector4)cVec.Cross((Vector3)v);
 }
 
 const Vector4& Vector4::operator=(const Vector4& v)
@@ -261,6 +287,27 @@ const Vector4& Vector4::operator*=(const float f)
     this->z *= f;
     this->w *= f;
     return *this;
+}
+
+float& Vector4::operator[](int i)
+{
+    switch (i) {
+
+    case 0:
+        return this->x;
+        break;
+    case 1:
+        return this->y;
+        break;
+    case 2:
+        return this->z;
+        break;
+    case 3:
+        return this->w;
+        break;
+    default:
+        break;
+    }
 }
 
 Vector4 operator*(const float LHS, Vector4& RHS)
